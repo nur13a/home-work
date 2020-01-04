@@ -1,0 +1,69 @@
+create table sport_types(
+id integer primary key,
+name varchar (50)not null,
+salary integer not null
+);
+
+create table trainers(
+id integer primary key,
+name varchar(50) not null,
+phone_number varchar(50),
+inn varchar(14) unique not null,
+sport_type integer references sport_types(id)
+);
+
+select *from trainers ;
+select * from sport_types ;
+
+insert into sport_types(id,name,salary)
+values (1,'Football',3000);
+insert into sport_types(id,name,salary)
+values (2,'Basketball',3000);
+insert into sport_types(id,name,salary)
+values (3,'Valleyball',3000);
+insert into sport_types(id,name,salary)
+values (4,'golf',2000);
+delete from sport_types where id=4;
+
+insert into trainers(id,name,phone_number,inn,sport_type)
+values(1,'Alex','0554464',111111,1);
+insert into trainers(id,name,phone_number,inn,sport_type)
+values(2,'Margo','0554464',111112,3);
+insert into trainers(id,name,phone_number,inn,sport_type)
+values(3,'John','0554464',111113,2);
+insert into trainers(id,name,phone_number,inn,sport_type)
+values(4,'Kitty','0854984',111114,1);
+
+create table gender(
+id integer primary key,
+gender varchar(6)unique not null);
+select * from gender;
+
+insert into gender (id,gender)values (1,'man');
+insert into gender (id,gender)values (2,'woman');
+
+create table Visitor(
+id integer primary key,
+FIO varchar(50) not null ,
+birthdate varchar (15) not null,
+gender integer references gender(id));
+
+insert into visitor(id,FIO,birthdate,gender)
+values (1,'Tom','12.03',1);
+insert into visitor(id,FIO,birthdate,gender)
+values (2,'Tomiris','12.05',2);
+insert into visitor(id,FIO,birthdate,gender)
+values (3,'Bill','18.03',1);
+
+create table visit(
+visitor integer references visitor(id) ,
+timeOfVisit varchar(20)not null,
+trainer integer references trainers(id)
+);
+
+insert into visit(visitor,timeOfVisit,trainer)
+values (1,'12.30',1);
+insert into visit(visitor,timeOfVisit,trainer)
+values (2,'13.30',3);
+insert into visit(visitor,timeOfVisit,trainer)
+values (3,'14.30',2);
