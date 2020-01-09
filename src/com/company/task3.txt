@@ -1,0 +1,59 @@
+create table people(
+id serial primary key ,
+FIO varchar(50)not null,
+birthdate varchar(20) not null
+);
+
+insert into people(FIO,birthdate)
+values ('Lena','12.03'),('Sasha','12.03'),('Masha','12.03'),
+('Dasha','12.03'),('Pasha','12.03'),('Anya','12.03'),('Danya','12.03'),
+('Vanya','12.03'),('Olya','12.03'),('Kolya','12.03'),('Katya','12.03');
+
+create table cities c(
+id serial primary key,
+title varchar(50) not null,
+country integer references countries(id),
+head integer references luxuries(id),
+population integer references people(id)
+);
+
+insert into cities(title,country,head,population)
+values ('Bishkek',1,2,6),('aaa',2,4,7),('bbb',1,2,7);
+insert into cities(title,country,head,population)
+values('Kkk',1,2,4);
+
+
+create table countries(
+id serial primary key,
+title varchar(50) unique not null,
+code varchar(20) unique not null,
+population integer references people(id),
+president integer references luxuries(id),
+ofLanguage varchar(40)
+);
+
+insert into countries(title,code,population,president,ofLanguage)
+values ('Kyrgyzstan','+996',1,1,'Kyrgyz');
+insert into countries(title,code,population,president)
+values('USA','+761',5,3);
+
+select*from countries c2;
+
+create table luxuries(
+id serial primary key,
+name varchar (50)not null,
+status varchar(50) not null
+);
+
+insert into luxuries(name,status)
+values ('Sooronbay Jeenbekov','president'),('Aziz Surakmatov','head');
+insert into luxuries(name,status)
+values('Tramp','president'),('Kto-to','head');
+
+select * from luxuries l2;
+
+select c.title from cities c
+where c.title like 'K%';
+select c2.title from countries c2
+where c2.title like 'K%';
+

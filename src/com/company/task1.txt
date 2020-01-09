@@ -1,0 +1,46 @@
+create table sport_types(
+id integer primary key,
+name varchar (50)not null,
+salary integer not null
+);
+create table trainers(
+id integer primary key,
+name varchar(50) not null,
+phone_number varchar(50),
+inn varchar(14) unique not null,
+sport_type integer references sport_types(id)
+);
+
+select *from trainers t;
+select * from sport_types st;
+
+insert into sport_types(id,name,salary)
+values (1,'Football',3000);
+insert into sport_types(id,name,salary)
+values (2,'Basketball',2000);
+insert into sport_types(id,name,salary)
+values (3,'Valleyball',3000);
+insert into sport_types(id,name,salary)
+values (4,'Swimming',4000);
+insert into sport_types(id,name,salary)
+values (5,'golf',2000);
+delete from sport_types where id=5;
+insert into sport_types(id,name,salary)
+values (6,'Running',400);
+
+insert into trainers(id,name,phone_number,inn,sport_type)
+values(1,'Alex','0554464',111111,1);
+insert into trainers(id,name,phone_number,inn,sport_type)
+values(2,'Margo','0588844',111112,3);
+insert into trainers(id,name,phone_number,inn,sport_type)
+values(3,'John','0554464',111113,2);
+insert into trainers(id,name,phone_number,inn,sport_type)
+values(4,'Kitty','0854984',111144,4);
+insert into trainers(id,name,phone_number,inn,sport_type)
+values(5,'David','0854556',111155,6);
+
+
+select t2.name,st.salary from trainers t2
+join sport_types st on t2.sport_type=st.id;
+
+select sum(salary) from sport_types st;
