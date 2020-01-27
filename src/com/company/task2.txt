@@ -1,0 +1,71 @@
+create table gender(
+id integer primary key,
+gender varchar(6)unique not null);
+select * from gender;
+
+insert into gender (id,gender)values (1,'man');
+insert into gender (id,gender)values (2,'woman');
+
+create table trainers(
+id integer primary key,
+name varchar(40) not null,
+age integer not null,
+gender integer references gender(id)
+);
+
+insert into trainers(id,name,age,gender)
+values (1,'Askhat',25,1);
+insert into trainers(id,name,age,gender)
+values (2,'Sabina',22,2);
+insert into trainers(id,name,age,gender)
+values (3,'Azat',25,1);
+
+create table groups (
+id_groups integer primary key,
+title varchar(20)unique not null,
+trainer integer references trainers(id)
+);
+
+insert into "groups"(id_groups,title,trainer)
+values (1,'Java-1901',1);
+insert into "groups"(id_groups,title,trainer)
+values (2,'Java-1902',2);
+insert into "groups"(id_groups,title,trainer)
+values (3,'PTN-1901',3);
+
+create table students(
+id integer primary key,
+name varchar(50)not null,
+age integer not null,
+status varchar(50) not null,
+group1 integer references "groups"(id_groups)
+);
+
+insert into students (id,name,age,status,group1)
+values (1,'Nuriza',19,'student',1);
+insert into students(id,name,age,status,group1)
+values (2,'Nuriza1',20,'worker',2);
+insert into students(id,name,age,status,group1)
+values (3,'Nuriza2',21,'schoolgirl',3);
+
+select * from students;
+
+create table administration(
+id integer primary key,
+name varchar(20) not null,
+profession varchar(20) not null,
+gender integer references gender(id)
+);
+
+insert into administration(id,name,profession,gender)
+values (1,'Oscar','manager',1);
+insert into administration(id,name,profession,gender)
+values (2,'Jason','director',1);
+insert into administration(id,name,profession,gender)
+values (3,'Emma','photograph',2);
+
+select * from administration ;
+
+select "name",age,groups.title as group_title,groups.trainer
+from students s2
+join groups on s2.group1=groups.id_groups;
